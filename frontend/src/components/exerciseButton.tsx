@@ -1,9 +1,12 @@
 // TODO: Create the modals
 import "../App.css";
-import { useState } from 'react';
+import { useState, Dispatch } from 'react';
+import { Data } from '../components/appLayout'
 import Modal from ".//modal";
 
-function ExerciseButton(props: { create: boolean, name?: string, id?: string, fetchApi?: VoidFunction }) {
+function ExerciseButton(
+  props: { create: boolean, name?: string, id?: string, fetchApi?: (p: Dispatch<Data | undefined>) => {}, setData?: Dispatch<Data | undefined> }
+) {
   const [modal, setModal] = useState<boolean>(false);
   async function modalAction(formData: any) {
     if (!props.create) {
@@ -33,7 +36,7 @@ function ExerciseButton(props: { create: boolean, name?: string, id?: string, fe
       });
 
       setModal(false);
-      props.fetchApi!();
+      props.fetchApi!(props.setData!);
       return;
     }
 
@@ -55,41 +58,42 @@ function ExerciseButton(props: { create: boolean, name?: string, id?: string, fe
     });
 
     setModal(false);
-    props.fetchApi!();
+    props.fetchApi!(props.setData!);
   }
 
   return (
     <>
       <span onClick={() => setModal(true)} className="exerciseButton">
-        {props.create ? "Create New" : props.name}
+        <h1>
+          {props.create ? "CREATE NEW" : props.name?.toUpperCase()}
+        </h1>
       </span>
 
       {modal ?
         <Modal formAction={modalAction} id={props.id} name={props.name}>
           {props.create ? (
             <>
-              <h1>Create Exercise</h1>
-              <label className="modal-item" htmlFor="name">Exercise Name</label>
+              <h1>CREATE EXERCISE</h1>
+              <label className="modal-item" htmlFor="name">EXERCISE NAME</label>
               <input className="modal-item" type="text" id="name" name="name" required />
               <div className="modal-item">
-                <input type="submit" value="submit" />
-                <button type="button" onClick={() => setModal(false)}>Close</button>
+                <input type="submit" value="SUBMIT" />
+                <button type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
             </>
           ) : (
             <>
-              <h1>{props.name}</h1>
-              <label className="modal-item" htmlFor="weight">Weight</label>
+              <h1>{props.name?.toUpperCase()}</h1>
+              <label className="modal-item" htmlFor="weight">WEIGHT</label>
               <input className="modal-item" type="text" id="weight" name="weight" required />
-              <label className="modal-item" htmlFor="sets">Sets</label>
+              <label className="modal-item" htmlFor="sets">SETS</label>
               <input className="modal-item" type="text" id="sets" name="sets" required />
-              <label className="modal-item" htmlFor="reps">Reps</label>
+              <label className="modal-item" htmlFor="reps">REPS</label>
               <input className="modal-item" type="text" id="reps" name="reps" required />
               <div className="modal-item">
-                <input type="submit" value="submit" />
-                <button type="button" onClick={() => setModal(false)}>Close</button>
+                <input type="submit" value="SUBMIT" />
+                <button type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
-
             </>
           )}
 

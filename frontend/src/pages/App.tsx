@@ -1,46 +1,14 @@
 import { useState, useEffect } from 'react'
+import { useData, fetchApi } from '../components/appLayout'
 import ExerciseButton from "../components/exerciseButton";
 import Modal from "../components/modal";
 import '../App.css'
 
-/*
-type Workout = {
-  weight: number,
-  sets: number,
-  reps: number
-};
-*/
-
-type Exercise = {
-  id: string,
-  name: string,
-  //workouts: Workout[]
-};
-
-type Data = {
-  nameNotValid: boolean,
-  name: string,
-  exercises: Exercise[]
-};
 
 function App() {
-  const [data, setData] = useState<Data | undefined>(undefined);
+  const [data, setData] = useData();
   const [nameNotValid, setNameNotValid] = useState<boolean>(false);
 
-  async function fetchApi() {
-    // TODO: Figure out environment variables
-    const raw = await fetch("http://localhost:8080/app", {
-      credentials: "include",
-    });
-
-
-    const json = await raw.json();
-    console.log(json);
-    setData(json);
-    if (data!.nameNotValid) {
-      setNameNotValid(true);
-    }
-  }
   async function nameAction(formData: any) {
     const name = String(formData.get("name"));
     if (!(typeof name === "string")) {
@@ -60,51 +28,45 @@ function App() {
     });
 
     setNameNotValid(false);
-    fetchApi();
+    fetchApi(setData);
   }
 
   useEffect(() => {
-    fetchApi();
+    if (data != undefined && data!.nameNotValid) {
+      setNameNotValid(true);
+    }
   }, []);
 
   return (
     <>
-      {nameNotValid ? (
-        <>
-          <Modal formAction={nameAction} >
-            <h1>Create User Name</h1>
-            <label className="modal-item" htmlFor="name">Please Enter Your Name</label>
-            <input className="modal-item" type="text" id="name" name="name" required />
-            <div className="modal-item">
-              <input type="submit" value="submit" />
-            </div>
-          </Modal>
-        </>
-      ) : (
-        <>
-        </>)}
-      {data ? (
-        <>
-          <div className="navBar">
-            <h1>
-              {data?.name + "'s Gym Journal"}
-            </h1>
-            <a href="http://localhost:8080/logout/google">logout</a>
-          </div>
-          <div className="exerciseButtonGrid">
-            {data.exercises.map((e, k) => {
-              return <ExerciseButton key={k} create={false} name={e.name} id={e.id} />
-            })}
-            <ExerciseButton create={true} fetchApi={fetchApi} />
-          </div >
-        </>
-
-      ) : (
-        <div>No data loaded :(</div>
-      )
+      {
+        data ? (
+          <>
+            {nameNotValid ? (
+              <>
+                <Modal formAction={nameAction} >
+                  <h1>CREATE USER NAME</h1>
+                  <label className="modal-item" htmlFor="name">PLEASE ENETER YOUR NAME</label>
+                  <input className="modal-item" type="text" id="name" name="name" required />
+                  <div className="modal-item">
+                    <input type="submit" value="SUBMIT" />
+                  </div>
+                </Modal>
+              </>
+            ) : (<></>)}
+            <>
+              <div className="exerciseButtonGrid">
+                {data.exercises.map((e, k) => {
+                  return <ExerciseButton key={k} create={false} name={e.name} id={e.id} />
+                })}
+                <ExerciseButton create={true} fetchApi={fetchApi} setData={setData} />
+              </div >
+            </>
+          </>
+        ) : (
+          <div>No data loaded :(</div>
+        )
       }
-
-
     </>
   )
 }
