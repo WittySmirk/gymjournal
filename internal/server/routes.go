@@ -8,6 +8,7 @@ import (
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"github.com/markbates/goth/gothic"
+	"io"
 	"net/http"
 	//	"strconv"
 	//	"strings"
@@ -134,6 +135,7 @@ func CreateRoutes() http.Handler {
 	mux.HandleFunc("/auth/google", CheckSession(false, AuthHandle))
 	mux.HandleFunc("GET /app", CheckSession(true, appGet))
 	mux.HandleFunc("POST /app", CheckSession(true, appPost))
+	mux.HandleFunc("POST /workouts", CheckSession(true, workoutsPost))
 
 	return mux
 }
@@ -370,4 +372,64 @@ func appPost(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, derr.Error())
 		return
 	}
+}
+
+type WorkoutResponse struct {
+	Workouts []Workout `json:"workouts"`
+}
+
+func workoutsPost(w http.ResponseWriter, r *http.Request) {
+	myuser := GetUserFromContext(r)
+	if myuser == nil {
+		fmt.Println("error context was nil")
+		return
+	}
+	db := GetDb()
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Error reading the body", http.StatusBadRequest)
+		return
+	}
+
+	exerciseId := string(body)
+	defer r.Body.Close()
+
+	var rightUser int
+	dRightUser := db.QueryRow("SELECT count(1) FROM exercise WHERE id = ? AND user_id = ?", exerciseId, myuser.Id)
+	dRightUser.Scan(&rightUser)
+	if rightUser != 1 {
+		http.Error(w, "Not authenticated", http.StatusUnauthorized)
+		return
+	}
+
+	var workouts []Workout
+	dWorkouts, dwError := db.Query("SELECT weight, reps, sets, time FROM workout WHERE exercise_id = ?", exerciseId)
+	if dwError != nil {
+		fmt.Fprintln(w, dwError.Error())
+		return
+	}
+
+	for dWorkouts.Next() {
+		var work Workout
+		err := dWorkouts.Scan(&work.Weight, &work.Reps, &work.Sets, &work.Time)
+		if err != nil {
+			fmt.Fprintln(w, err.Error())
+			return
+		}
+		workouts = append(workouts, work)
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+
+	data := WorkoutResponse{
+		Workouts: workouts,
+	}
+
+	jsonbytes, jerr := json.Marshal(data)
+	if jerr != nil {
+		http.Error(w, jerr.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write(jsonbytes)
 }

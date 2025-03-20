@@ -44,6 +44,21 @@
 	padding: 0.25rem;
 }
 
+.footer {
+	padding: 0.25rem;
+	display: flex;
+	aligh-items: center;
+	justify-content:center;
+}
+
+.footer a {
+	text-decoration: none;
+	color: black;
+	padding: 0.25rem;
+	margin-top: 0.25rem;
+	font-weight: bold;
+}
+
 .exerciseButtonGrid {
 	display: grid;
 	grid-template-columns: repeat(4,1fr);

@@ -18,9 +18,10 @@ type Session struct {
 	ExpiresAt int64  `json:"expiresAt"`
 }
 type Workout struct {
-	Weight int `json:"weight"`
-	Sets   int `json:"sets"`
-	Reps   int `json:"reps"`
+	Weight int   `json:"weight"`
+	Sets   int   `json:"sets"`
+	Reps   int   `json:"reps"`
+	Time   int64 `json:"time"`
 }
 
 type Exercise struct {

@@ -1,18 +1,18 @@
 import { Outlet, useOutletContext, Link } from 'react-router'
 import { useState, useEffect, Dispatch } from 'react'
 
-/*
+
 type Workout = {
   weight: number,
   sets: number,
   reps: number
 };
-*/
+
 
 type Exercise = {
   id: string,
   name: string,
-  //workouts: Workout[]
+  workouts: Workout[]
 };
 
 export type Data = {
