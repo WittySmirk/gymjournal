@@ -7,13 +7,13 @@ This is gym journal. An open source tracking web application inspired by Stupid 
 * Implement a web application using Go and React mainly using the standard library
 
 ### Technologies
-* Go
-* TypeScript 
-** Vite
-** React 
-** React-Router
-* Google Oauth (Goth)
-* Turso
+- Go
+- TypeScript 
+    - Vite
+    - React 
+    - React-Router
+- Google Oauth (Goth)
+- Turso
 
 ### Self Hosting
 Environment variables that need to be set:
