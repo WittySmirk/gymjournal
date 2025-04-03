@@ -5,11 +5,14 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"strconv"
+
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"github.com/markbates/goth/gothic"
-	"io"
-	"net/http"
+
 	//	"strconv"
 	//	"strings"
 	"time"
@@ -417,6 +420,10 @@ func workoutsPost(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintln(w, err.Error())
 			return
 		}
+		workTime := time.Unix(work.Time, 0)
+		workString := workTime.Month().String() + " " + strconv.Itoa(workTime.Day()) + ", " + strconv.Itoa(workTime.Year())
+
+		work.TimeString = workString
 		workouts = append(workouts, work)
 	}
 

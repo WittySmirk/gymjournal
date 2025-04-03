@@ -3,8 +3,9 @@ package server
 import (
 	"database/sql"
 	"fmt"
-	_ "github.com/tursodatabase/libsql-client-go/libsql"
 	"os"
+
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
 )
 
 type User struct {
@@ -18,10 +19,11 @@ type Session struct {
 	ExpiresAt int64  `json:"expiresAt"`
 }
 type Workout struct {
-	Weight int   `json:"weight"`
-	Sets   int   `json:"sets"`
-	Reps   int   `json:"reps"`
-	Time   int64 `json:"time"`
+	Weight     int    `json:"weight"`
+	Sets       int    `json:"sets"`
+	Reps       int    `json:"reps"`
+	Time       int64  `json:"time"`
+	TimeString string `json:"timeString"`
 }
 
 type Exercise struct {

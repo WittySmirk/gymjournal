@@ -1,7 +1,8 @@
 /* TODO: Probably should modularize the css */
+
 :root {
 	font-family: "Noto Sans";
-	background-color: #FFFD73A3;
+	background-color: rgb(255, 254, 166);
 }
 
 .indexmain {
@@ -28,6 +29,9 @@
 }
 
 .navBar {
+	positioN: sticky;
+	top: 0rem;
+	background: rgb(255, 254, 166);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -45,10 +49,15 @@
 }
 
 .footer {
-	padding: 0.25rem;
+	width: 100%;
+	bottom: 0;
+	padding: 0.5rem;
 	display: flex;
-	aligh-items: center;
+	align-items: center;
 	justify-content:center;
+	background-color: rgb(255, 254, 166);
+	margin-top:0.25rem;
+	position: sticky;
 }
 
 .footer a {
@@ -116,3 +125,35 @@
 	padding-top: 5rem;
 	padding-bottom: 5rem;
 }
+
+.workoutSelect {
+	background: none;
+	font-weight: bold;
+	padding: 0.25rem;
+	border: 2px solid;
+	margin-bottom: 0.25rem;
+}
+
+.workoutTable {
+	border: 2px solid;
+	border-collapse: collapse;
+	width: 100%;
+}
+  
+.workoutTable tbody {
+	border-bottom: 2px solid;
+}
+  
+.workoutTable th {
+	border-bottom: 2px solid;
+	border-right: 2px solid;
+	padding: 2px 4px;
+}
+.workoutTable td {
+	border: 2px solid;
+	padding: 20px;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+  

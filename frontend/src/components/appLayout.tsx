@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, Link } from 'react-router'
-import { useState, useEffect, Dispatch } from 'react'
+import { useState, useEffect, Dispatch, useLayoutEffect } from 'react'
 
 
 type Workout = {
@@ -36,8 +36,9 @@ function AppLayout() {
   const [data, setData] = useState<Data | undefined>(undefined);
   useEffect(() => {
     fetchApi(setData);
-  }, []);
 
+  }, []);
+  
   return (
     <>
       <div className="navBar">
@@ -46,7 +47,7 @@ function AppLayout() {
         </h1>
         <a href="http://localhost:8080/logout/google">EXIT</a>
       </div>
-      <Outlet context={[data, setData]} />
+        <Outlet context={[data, setData]} />
       <div className="footer">
         <Link to="/app">Tracker</Link>
         <Link to="/workouts">Workouts</Link>
