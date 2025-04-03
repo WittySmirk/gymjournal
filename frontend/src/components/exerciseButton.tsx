@@ -74,25 +74,25 @@ function ExerciseButton(
           {props.create ? (
             <>
               <h1>CREATE EXERCISE</h1>
-              <label className="modal-item" htmlFor="name">EXERCISE NAME</label>
-              <input className="modal-item" type="text" id="name" name="name" required />
+              <label className="modal-item-label" htmlFor="name">EXERCISE NAME</label>
+              <input className="modal-item-input" type="text" id="name" name="name" required />
               <div className="modal-item">
-                <input type="submit" value="SUBMIT" />
-                <button type="button" onClick={() => setModal(false)}>CLOSE</button>
+                <input className="modal-item-button" type="submit" value="SUBMIT" />
+                <button className="modal-item-button" type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
             </>
           ) : (
             <>
               <h1>{props.name?.toUpperCase()}</h1>
-              <label className="modal-item" htmlFor="weight">WEIGHT</label>
-              <input className="modal-item" type="text" id="weight" name="weight" required />
-              <label className="modal-item" htmlFor="sets">SETS</label>
-              <input className="modal-item" type="text" id="sets" name="sets" required />
-              <label className="modal-item" htmlFor="reps">REPS</label>
-              <input className="modal-item" type="text" id="reps" name="reps" required />
+              <label className="modal-item-label" htmlFor="weight">WEIGHT</label>
+              <input className="modal-item-input" type="text" id="weight" name="weight" required />
+              <label className="modal-item-label" htmlFor="sets">SETS</label>
+              <input className="modal-item-input" type="text" id="sets" name="sets" required />
+              <label className="modal-item-label" htmlFor="reps">REPS</label>
+              <input className="modal-item-input" type="text" id="reps" name="reps" required />
               <div className="modal-item">
-                <input type="submit" value="SUBMIT" />
-                <button type="button" onClick={() => setModal(false)}>CLOSE</button>
+                <input className="modal-item-button" type="submit" value="SUBMIT" />
+                <button className="modal-item-button" type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
             </>
           )}

@@ -112,7 +112,8 @@
 }
 
 #modal > .modal-form {
-	background-color: white;
+	background-color: rgb(255, 254, 166);
+	border: 2px solid;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -124,6 +125,23 @@
 #modal > .modal-item {
 	padding-top: 5rem;
 	padding-bottom: 5rem;
+}
+.modal-item-input {
+	border: 2px solid;
+	background: none;
+	margin-bottom:0.25rem;
+}
+
+.modal-item-label {
+	font-weight: bold;
+}
+
+.modal-item-button {
+	background: none;
+	font-weight: bold;
+	border: 2px solid;
+	margin-inline: 0.12rem;
+	margin-top: 0.5rem;
 }
 
 .workoutSelect {
