@@ -276,20 +276,6 @@ func appGet(w http.ResponseWriter, r *http.Request) {
 		exercises = append(exercises, ex)
 	}
 
-	// TODO: Make name shit
-	/*
-			if !name.Valid {
-				// If name is not valid ask for name
-				templ, err := template.ParseFiles("templates/makename.html")
-				if err != nil {
-					http.Error(w, err.Error(), http.StatusInternalServerError)
-					return
-				}
-				templ.Execute(w, nil)
-			}
-		myuser.Name = name.String
-	*/
-
 	w.Header().Set("Content-Type", "application/json")
 	if !name.Valid {
 		data := Data{

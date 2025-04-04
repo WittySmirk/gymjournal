@@ -66,9 +66,10 @@ function Workouts() {
   })
 
   useEffect(() => {
-    fetchWorkouts(data.exercises[0].id);
-  }, []);
-
+    if (data != undefined) {
+      fetchWorkouts(data.exercises[0].id);
+    }
+  }, [data]);
 
   return (
     <>
@@ -114,13 +115,10 @@ function Workouts() {
             ) : <>
             </>}
           </>) : <>
-            <div style={{display: 'flex', alignItems: 'center', justifyContent:'center'}}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <h1>THERE ARE NO WORKOUTS FOR THIS EXERCISE</h1>
-
             </div>
           </>}
-
-
         </>
       ) : (
         <div>No data loaded :(</div>)}

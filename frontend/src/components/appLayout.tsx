@@ -8,7 +8,6 @@ type Workout = {
   reps: number
 };
 
-
 type Exercise = {
   id: string,
   name: string,
@@ -21,13 +20,11 @@ export type Data = {
   exercises: Exercise[]
 };
 
-
 export async function fetchApi(setData: Dispatch<Data | undefined>) {
   // TODO: Figure out environment variables
   const raw = await fetch("http://localhost:8080/app", {
     credentials: "include",
   });
-
 
   const json = await raw.json();
   setData(json);

@@ -86,7 +86,7 @@ function ExerciseButton(
       </span>
 
       {modal ?
-        <Modal formAction={modalAction} id={props.id} name={props.name}>
+        <Modal formAction={modalAction} id={props.id} name={props.name} open={setModal}>
           {props.create ? (
             <>
               <h1>CREATE EXERCISE</h1>
