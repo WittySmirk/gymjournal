@@ -4,16 +4,17 @@ import ExerciseButton from "../components/exerciseButton";
 import Modal from "../components/modal";
 import '../App.css'
 
+type wrongType = "false" | "string";
 
 function App() {
   const [data, setData] = useData();
   const [nameNotValid, setNameNotValid] = useState<boolean>(false);
+  const [wrongName, setWrongName] = useState<wrongType>("false");
 
   async function nameAction(formData: any) {
     const name = String(formData.get("name"));
     if (!(typeof name === "string")) {
-      // TODO: set up error handling
-      setNameNotValid(false);
+      setWrongName("string");
       return;
     }
     const d = {
@@ -27,6 +28,7 @@ function App() {
       credentials: "include"
     });
 
+    setWrongName("false");
     setNameNotValid(false);
     fetchApi(setData);
   }
@@ -51,6 +53,7 @@ function App() {
                   <div className="modal-item">
                     <input type="submit" value="SUBMIT" />
                   </div>
+                  <p className="modal-error">{wrongName == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
                 </Modal>
               </>
             ) : (<></>)}

@@ -156,6 +156,13 @@
 	margin-top: 0.5rem;
 }
 
+.modal-error {
+	position: absolute;
+	bottom: 5%;
+	color: red;
+	font-weight: bold;
+}
+
 .workoutSelect {
 	background: none;
 	font-weight: bold;

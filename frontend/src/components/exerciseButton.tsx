@@ -1,13 +1,15 @@
-// TODO: Create the modals
 import "../App.css";
 import { useState, Dispatch } from 'react';
 import { Data } from '../components/appLayout'
 import Modal from ".//modal";
 
+type wrongType = "false" | "number" | "string";
+
 function ExerciseButton(
   props: { create: boolean, name?: string, id?: string, fetchApi?: (p: Dispatch<Data | undefined>) => {}, setData?: Dispatch<Data | undefined> }
 ) {
   const [modal, setModal] = useState<boolean>(false);
+  const [wrong, setWrong] = useState<wrongType>("false");
   async function modalAction(formData: any) {
     if (!props.create) {
 
@@ -16,8 +18,7 @@ function ExerciseButton(
       const reps = Number(formData.get("reps"));
 
       if (isNaN(weight) || isNaN(sets) || isNaN(reps)) {
-        // TODO: Set up some type of error thing here that says must be a number
-        setModal(false);
+        setWrong("number");
         return;
       }
 
@@ -34,6 +35,7 @@ function ExerciseButton(
         credentials: "include"
       });
 
+      setWrong("false");
       setModal(false);
       props.fetchApi!(props.setData!);
       return;
@@ -41,8 +43,7 @@ function ExerciseButton(
 
     const name = String(formData.get("name"));
     if (!(typeof name === "string")) {
-      // TODO: Set up some type of error thing here that says must be a number
-      setModal(false);
+      setWrong("string");
       return;
     }
 
@@ -56,6 +57,7 @@ function ExerciseButton(
       credentials: "include"
     });
 
+    setWrong("false");
     setModal(false);
     props.fetchApi!(props.setData!);
   }
@@ -111,7 +113,7 @@ function ExerciseButton(
               </div>
             </>
           )}
-
+          <p className="modal-error">{wrong == "number" ? "MAKE SURE WEIGHT, SETS, AND REPS ARE ALL NUMBERS" : wrong == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
         </Modal >
         : <></>
       }
