@@ -1,13 +1,13 @@
 import { ReactNode } from "react";
-
+import modalStyles from './modal.module.css'
 function Modal(props: { children: ReactNode, formAction: (formData: any) => void, id?: string, name?: string }) {
   async function modalAction(formData: any) {
     props.formAction(formData);
   }
   return (
-    <div id="modal">
+    <div className={modalStyles['modal']}>
       {/* @ts-ignore */}
-      <form className="modal-form" action={modalAction}>
+      <form className={modalStyles['form']} action={modalAction}>
         {props.children}
       </form >
     </div >

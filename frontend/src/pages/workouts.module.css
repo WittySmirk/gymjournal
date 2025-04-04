@@ -1,0 +1,29 @@
+.select {
+	background: none;
+	font-weight: bold;
+	padding: 0.25rem;
+	border: 2px solid;
+	margin-bottom: 0.25rem;
+}
+
+.table {
+	border: 2px solid;
+	border-collapse: collapse;
+	width: 100%;
+}
+  
+.table tbody {
+	border-bottom: 2px solid;
+}
+  
+.table th {
+	border-bottom: 2px solid;
+	border-right: 2px solid;
+	padding: 2px 4px;
+}
+.table td {
+	border: 2px solid;
+	padding: 20px;
+	white-space: nowrap;
+	font-weight: bold;
+}

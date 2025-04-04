@@ -1,7 +1,8 @@
-import "../App.css";
 import { useState, Dispatch } from 'react';
 import { Data } from '../components/appLayout'
 import Modal from ".//modal";
+import exerciseButtonStyles from "./exerciseButton.module.css"
+import modalStyles from "./modal.module.css"
 
 type wrongType = "false" | "number" | "string";
 
@@ -12,7 +13,6 @@ function ExerciseButton(
   const [wrong, setWrong] = useState<wrongType>("false");
   async function modalAction(formData: any) {
     if (!props.create) {
-
       const weight = Number(formData.get("weight"));
       const sets = Number(formData.get("sets"));
       const reps = Number(formData.get("reps"));
@@ -79,7 +79,7 @@ function ExerciseButton(
 
   return (
     <>
-      <span onClick={() => setModal(true)} className="exerciseButton">
+      <span onClick={() => setModal(true)} className={exerciseButtonStyles['button']}>
         <h1>
           {props.create ? "CREATE NEW" : props.name?.toUpperCase()}
         </h1>
@@ -90,30 +90,30 @@ function ExerciseButton(
           {props.create ? (
             <>
               <h1>CREATE EXERCISE</h1>
-              <label className="modal-item-label" htmlFor="name">EXERCISE NAME</label>
-              <input className="modal-item-input" type="text" id="name" name="name" required />
-              <div className="modal-item">
-                <input className="modal-item-button" type="submit" value="SUBMIT" />
-                <button className="modal-item-button" type="button" onClick={() => setModal(false)}>CLOSE</button>
+              <label className={modalStyles['item-label']} htmlFor="name">EXERCISE NAME</label>
+              <input className={modalStyles['item-input']} type="text" id="name" name="name" required />
+              <div className={modalStyles['item']}>
+                <input className={modalStyles['item-button']} type="submit" value="SUBMIT" />
+                <button className={modalStyles['item-button']} type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
             </>
           ) : (
             <>
-              <button className="modal-item-delete" onClick={deleteItem}>DELETE</button>
+              <button className={modalStyles['item-delete']} onClick={deleteItem}>DELETE</button>
               <h1>{props.name?.toUpperCase()}</h1>
-              <label className="modal-item-label" htmlFor="weight">WEIGHT</label>
-              <input className="modal-item-input" type="text" id="weight" name="weight" required />
-              <label className="modal-item-label" htmlFor="sets">SETS</label>
-              <input className="modal-item-input" type="text" id="sets" name="sets" required />
-              <label className="modal-item-label" htmlFor="reps">REPS</label>
-              <input className="modal-item-input" type="text" id="reps" name="reps" required />
-              <div className="modal-item">
-                <input className="modal-item-button" type="submit" value="SUBMIT" />
-                <button className="modal-item-button" type="button" onClick={() => setModal(false)}>CLOSE</button>
+              <label className={modalStyles['item-label']} htmlFor="weight">WEIGHT</label>
+              <input className={modalStyles['item-input']} type="text" id="weight" name="weight" required />
+              <label className={modalStyles['item-label']} htmlFor="sets">SETS</label>
+              <input className={modalStyles['item-input']} type="text" id="sets" name="sets" required />
+              <label className={modalStyles['item-label']} htmlFor="reps">REPS</label>
+              <input className={modalStyles['item-input']} type="text" id="reps" name="reps" required />
+              <div className={modalStyles['item']}>
+                <input className={modalStyles['item-button']} type="submit" value="SUBMIT" />
+                <button className={modalStyles['item-button']} type="button" onClick={() => setModal(false)}>CLOSE</button>
               </div>
             </>
           )}
-          <p className="modal-error">{wrong == "number" ? "MAKE SURE WEIGHT, SETS, AND REPS ARE ALL NUMBERS" : wrong == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
+          <p className={modalStyles['error']}>{wrong == "number" ? "MAKE SURE WEIGHT, SETS, AND REPS ARE ALL NUMBERS" : wrong == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
         </Modal >
         : <></>
       }

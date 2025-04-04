@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react'
 import { useData, fetchApi } from '../components/appLayout'
 import ExerciseButton from "../components/exerciseButton";
 import Modal from "../components/modal";
-import '../App.css'
+// import '../App.css'
+import appStyles from './app.module.css'
+import modalStyles from '../components/modal.module.css'
 
 type wrongType = "false" | "string";
 
@@ -48,17 +50,17 @@ function App() {
               <>
                 <Modal formAction={nameAction} >
                   <h1>CREATE USER NAME</h1>
-                  <label className="modal-item" htmlFor="name">PLEASE ENETER YOUR NAME</label>
-                  <input className="modal-item" type="text" id="name" name="name" required />
-                  <div className="modal-item">
+                  <label className={modalStyles['item']} htmlFor="name">PLEASE ENETER YOUR NAME</label>
+                  <input className={modalStyles['item']} type="text" id="name" name="name" required />
+                  <div className={modalStyles['item']}>
                     <input type="submit" value="SUBMIT" />
                   </div>
-                  <p className="modal-error">{wrongName == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
+                  <p className={modalStyles['error']}>{wrongName == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
                 </Modal>
               </>
             ) : (<></>)}
             <>
-              <div className="exerciseButtonGrid">
+              <div className={appStyles['grid']}>
                 {data.exercises.map((e, k) => {
                   return <ExerciseButton key={k} create={false} name={e.name} id={e.id} />
                 })}

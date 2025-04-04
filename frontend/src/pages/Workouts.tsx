@@ -7,6 +7,8 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
+import workoutsStyles from './workouts.module.css'
+
 type Workout = {
   weight: number,
   sets: number,
@@ -72,7 +74,7 @@ function Workouts() {
     <>
       {data ? (
         <>
-          <select className="workoutSelect" onChange={(e) => fetchWorkouts(e.target.value)}>
+          <select className={workoutsStyles['select']} onChange={(e) => fetchWorkouts(e.target.value)}>
             {data.exercises.map((w) => {
               return <option key={w.id} value={w.id}>{w.name.toUpperCase()}</option>
             })}
@@ -80,7 +82,7 @@ function Workouts() {
           </select>
           {workoutData ? (<>
             {table ? (
-              <table className="workoutTable">
+              <table className={workoutsStyles['table']}>
                 <thead>
                   {table.getHeaderGroups().map(headerGroup => (
                     <tr key={headerGroup.id}>

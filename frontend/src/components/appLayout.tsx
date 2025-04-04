@@ -1,6 +1,6 @@
 import { Outlet, useOutletContext, Link } from 'react-router'
 import { useState, useEffect, Dispatch } from 'react'
-
+import appLayoutStyles from './appLayout.module.css'
 
 type Workout = {
   weight: number,
@@ -40,14 +40,14 @@ function AppLayout() {
 
   return (
     <>
-      <div className="navBar">
+      <div className={appLayoutStyles['navBar']}>
         <h1>
           {data?.name.toUpperCase() + "'S GYM JOURNAL"}
         </h1>
         <a href="http://localhost:8080/logout/google">EXIT</a>
       </div>
         <Outlet context={[data, setData]} />
-      <div className="footer">
+      <div className={appLayoutStyles['footer']}>
         <Link to="/app">Tracker</Link>
         <Link to="/workouts">Workouts</Link>
       </div>

@@ -1,0 +1,41 @@
+
+
+.navBar {
+	positioN: sticky;
+	top: 0rem;
+	background: rgb(255, 254, 166);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.navBar a {
+	position: absolute;
+	top: 2.75rem;
+	right: 6rem;
+	text-decoration: none;
+	color: black;
+	border: 2px solid;
+	padding: 0.25rem;
+}
+
+.footer {
+	width: 100%;
+	bottom: 0;
+	padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content:center;
+	background-color: rgb(255, 254, 166);
+	margin-top:0.25rem;
+	position: sticky;
+}
+
+.footer a {
+	text-decoration: none;
+	color: black;
+	padding: 0.25rem;
+	margin-top: 0.25rem;
+	font-weight: bold;
+}

@@ -1,5 +1,5 @@
 import "../App.css";
-
+import indexStyles from './index.module.css'
 function Index() {
   return (
     <>
@@ -10,8 +10,8 @@ function Index() {
           }
         `}
       </style>
-      <span className="indexmain">
-        <span className="mainitems" >
+      <span className={indexStyles['main']}>
+        <span className={indexStyles['mainitems']} >
           <div>
             <h1>GYMJOURNAL</h1>
             <h4>A MINIMALISTIC WORKOUT LOGGING APP</h4>
