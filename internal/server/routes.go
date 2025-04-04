@@ -209,7 +209,20 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 }
 
 func LogoutHandle(w http.ResponseWriter, r *http.Request) {
-	// TODO: since we are manually doing sessions, we need to delete the sessions ourselves
+	sessionId, _ := r.Cookie("session_id")
+
+	db := GetDb()
+	db.Exec("DELETE FROM session WHERE id = ?", sessionId)
+
+	http.SetCookie(w, &http.Cookie{
+		Name:     "session_id",
+		Value:    "",
+		Path:     "/",
+		MaxAge:   -1,
+		HttpOnly: true,
+		Secure:   false, // Change in prod
+	})
+
 	gothic.Logout(w, r)
 	http.Redirect(w, r, "http://localhost:5173/", http.StatusTemporaryRedirect)
 }
