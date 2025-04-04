@@ -1,5 +1,5 @@
 import { Outlet, useOutletContext, Link } from 'react-router'
-import { useState, useEffect, Dispatch, useLayoutEffect } from 'react'
+import { useState, useEffect, Dispatch } from 'react'
 
 
 type Workout = {
@@ -36,9 +36,8 @@ function AppLayout() {
   const [data, setData] = useState<Data | undefined>(undefined);
   useEffect(() => {
     fetchApi(setData);
-
   }, []);
-  
+
   return (
     <>
       <div className="navBar">

@@ -120,12 +120,24 @@
 	flex-direction: column;
 	width: 40%;
 	height: 40%;
+	position: relative;
 }
 
 #modal > .modal-item {
 	padding-top: 5rem;
 	padding-bottom: 5rem;
 }
+
+.modal-item-delete {
+	border: 2px solid;
+	background: none;
+	font-weight: bold;
+	padding: 0.25rem;
+	position: absolute;
+	top: 5%;
+	right: 5%;
+}
+
 .modal-item-input {
 	border: 2px solid;
 	background: none;

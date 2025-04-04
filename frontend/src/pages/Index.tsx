@@ -3,7 +3,6 @@ import "../App.css";
 function Index() {
   return (
     <>
-      {/* this is needed so that app still has overflow */}
       <style>
         {`
           body{
@@ -15,6 +14,7 @@ function Index() {
         <span className="mainitems" >
           <div>
             <h1>GYMJOURNAL</h1>
+            <h4>A MINIMALISTIC WORKOUT LOGGING APP</h4>
             <a href="http://localhost:8080/auth/google">Login with Google</a>
           </div>
           <div>

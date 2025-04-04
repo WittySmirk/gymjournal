@@ -22,7 +22,6 @@ function ExerciseButton(
       }
 
       const d = {
-        create: false,
         id: props.id,
         weight: weight,
         sets: sets,
@@ -61,6 +60,21 @@ function ExerciseButton(
     props.fetchApi!(props.setData!);
   }
 
+  async function deleteItem() {
+    const d = {
+      delete: true,
+      id: props.id
+    };
+    await fetch("http://localhost:8080/app", {
+      method: "POST",
+      body: JSON.stringify(d),
+      credentials: "include"
+    });
+
+    setModal(false);
+    props.fetchApi!(props.setData!);
+  }
+
   return (
     <>
       <span onClick={() => setModal(true)} className="exerciseButton">
@@ -83,6 +97,7 @@ function ExerciseButton(
             </>
           ) : (
             <>
+              <button className="modal-item-delete" onClick={deleteItem}>DELETE</button>
               <h1>{props.name?.toUpperCase()}</h1>
               <label className="modal-item-label" htmlFor="weight">WEIGHT</label>
               <input className="modal-item-input" type="text" id="weight" name="weight" required />

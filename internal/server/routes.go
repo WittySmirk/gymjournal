@@ -308,6 +308,7 @@ func appGet(w http.ResponseWriter, r *http.Request) {
 
 type Body struct {
 	Create     bool   `json:"create"`
+	Delete     bool   `json:"delete"`
 	CreateName bool   `json:"createName"`
 	Name       string `json:"name"`
 	Id         string `json:"id"`
@@ -331,13 +332,13 @@ func appPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	validate := validator.New()
+	db := GetDb()
 
 	if body.CreateName {
 		verr := validate.Var(body.Name, "ascii")
 		if verr != nil {
 			http.Error(w, "name not accepted", http.StatusNotAcceptable)
 		}
-		db := GetDb()
 		_, derr := db.Exec("UPDATE user SET name = ? WHERE user_id = ?", body.Name, myuser.Id)
 		if derr != nil {
 			fmt.Fprintln(w, derr.Error())
@@ -353,7 +354,6 @@ func appPost(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		db := GetDb()
 		_, derr := db.Exec("INSERT INTO exercise (id, user_id, name) VALUES (?, ?, ?)", uuid.New(), myuser.Id, body.Name)
 		if derr != nil {
 			fmt.Fprintln(w, derr.Error())
@@ -363,13 +363,21 @@ func appPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if body.Delete {
+		_, derr := db.Exec("DELETE FROM exercise WHERE id = ?", body.Id)
+		if derr != nil {
+			fmt.Fprintln(w, derr.Error())
+			return
+		}
+		return
+	}
+
 	verr := validate.StructPartial(body, "Body.Id Body.Weight Body.Sets Body.Reps")
 	if verr != nil {
 		http.Error(w, "not accepted", http.StatusNotAcceptable)
 		return
 	}
 
-	db := GetDb()
 	_, derr := db.Exec("INSERT INTO workout (id, user_id, exercise_id, weight, sets, reps, time) VALUES (?, ?, ?, ?, ?, ?, ?)", uuid.New(), myuser.Id, body.Id, body.Weight, body.Sets, body.Reps, time.Now().Unix())
 	if derr != nil {
 		fmt.Fprintln(w, derr.Error())
