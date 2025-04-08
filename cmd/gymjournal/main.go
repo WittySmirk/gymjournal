@@ -1,18 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"log"
+	"net/http"
+	"os"
+
 	"github.com/WittySmirk/gymjournal/internal/auth"
 	"github.com/WittySmirk/gymjournal/internal/server"
 	"github.com/joho/godotenv"
-	"net/http"
 )
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		fmt.Println("failed to load env")
-		return
+	env := os.Getenv("ENVIRONMENT")
+	if env == "" || env == "development" {
+		if err := godotenv.Load(); err != nil {
+			log.Println("No .env file found")
+		}
 	}
 
 	server.CreateDb()
