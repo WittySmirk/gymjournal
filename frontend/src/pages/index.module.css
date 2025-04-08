@@ -1,22 +1,28 @@
 .main {
-	width: 100vw;
-	height:100vh;
-	display:flex;
-	align-items:center;
-	justify-content:center;
-	flex-direction:column;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: center;
 }
 
-.mainitems {
-	display:flex;
-	justify-content: space-between;
-	width:50%;
-	align-items: center;
+.main img {
+    margin-left: 0.35rem;
+    width: 95%;
 }
-
-.mainitems a {
+.main a {
 	text-decoration: none;
 	color: black;
 	border: 2px solid;
 	padding: 0.25rem;
+}
+
+@media screen and (min-width: 768px) {
+    .main {
+        flex-direction: row;
+    }
+    .description {
+        padding-right: 5rem;
+    }
 }

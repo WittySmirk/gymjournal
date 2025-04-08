@@ -1,41 +1,48 @@
-
-
 .navBar {
-	positioN: sticky;
-	top: 0rem;
-	background: rgb(255, 254, 166);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+    position: sticky;
+    top: 0;
+    font-size: smaller;
 }
 
 .navBar a {
-	position: absolute;
-	top: 2.75rem;
-	right: 6rem;
-	text-decoration: none;
-	color: black;
-	border: 2px solid;
-	padding: 0.25rem;
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: solid 2px;
+    padding: 0.25rem;
 }
 
 .footer {
-	width: 100%;
-	bottom: 0;
-	padding: 0.5rem;
-	display: flex;
-	align-items: center;
-	justify-content:center;
-	background-color: rgb(255, 254, 166);
-	margin-top:0.25rem;
-	position: sticky;
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
+    padding: 0.5rem;
 }
 
 .footer a {
-	text-decoration: none;
+    text-decoration: none;
 	color: black;
 	padding: 0.25rem;
 	margin-top: 0.25rem;
 	font-weight: bold;
+}
+
+@media screen and (min-width: 768px) {
+    .navBar {
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        font-size: large;
+    }
+    .navBar a {
+        top: 2rem;
+        right: 6rem;
+    }
+
 }

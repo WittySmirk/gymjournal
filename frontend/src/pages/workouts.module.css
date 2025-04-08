@@ -1,15 +1,21 @@
+.main {
+	margin-left: 1%;
+	width: 100%;
+}
 .select {
 	background: none;
 	font-weight: bold;
 	padding: 0.25rem;
 	border: 2px solid;
-	margin-bottom: 0.25rem;
+	margin-bottom: 0.5rem;
 }
 
 .table {
 	border: 2px solid;
 	border-collapse: collapse;
 	width: 100%;
+	margin-left: 1%;
+	margin-right: 1%;
 }
   
 .table tbody {
@@ -26,4 +32,18 @@
 	padding: 20px;
 	white-space: nowrap;
 	font-weight: bold;
+	font-size: small;
+}
+
+@media screen and (min-width: 768px) {
+	.table td {
+		font-size: medium;
+	}
+	.table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.main {
+		margin-left: 0;
+	}
 }

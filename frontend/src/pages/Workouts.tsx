@@ -73,55 +73,58 @@ function Workouts() {
 
   return (
     <>
-      {data ? (
-        <>
-          <select className={workoutsStyles['select']} onChange={(e) => fetchWorkouts(e.target.value)}>
-            {data.exercises.map((w) => {
-              return <option key={w.id} value={w.id}>{w.name.toUpperCase()}</option>
-            })}
+      <span className={workoutsStyles['main']}>
 
-          </select>
-          {workoutData ? (<>
-            {table ? (
-              <table className={workoutsStyles['table']}>
-                <thead>
-                  {table.getHeaderGroups().map(headerGroup => (
-                    <tr key={headerGroup.id}>
-                      {headerGroup.headers.map(header => (
-                        <th key={header.id}>
-                          {header.isPlaceholder
-                            ? null
-                            : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody>
-                  {table.getRowModel().rows.map(row => (
-                    <tr key={row.id}>
-                      {row.getVisibleCells().map(cell => (
-                        <td key={cell.id}>
-                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            ) : <>
+        {data ? (
+          <>
+            <select className={workoutsStyles['select']} onChange={(e) => fetchWorkouts(e.target.value)}>
+              {data.exercises.map((w) => {
+                return <option key={w.id} value={w.id}>{w.name.toUpperCase()}</option>
+              })}
+
+            </select>
+            {workoutData ? (<>
+              {table ? (
+                <table className={workoutsStyles['table']}>
+                  <thead>
+                    {table.getHeaderGroups().map(headerGroup => (
+                      <tr key={headerGroup.id}>
+                        {headerGroup.headers.map(header => (
+                          <th key={header.id}>
+                            {header.isPlaceholder
+                              ? null
+                              : flexRender(
+                                header.column.columnDef.header,
+                                header.getContext()
+                              )}
+                          </th>
+                        ))}
+                      </tr>
+                    ))}
+                  </thead>
+                  <tbody>
+                    {table.getRowModel().rows.map(row => (
+                      <tr key={row.id}>
+                        {row.getVisibleCells().map(cell => (
+                          <td key={cell.id}>
+                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : <>
+              </>}
+            </>) : <>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <h1>THERE ARE NO WORKOUTS FOR THIS EXERCISE</h1>
+              </div>
             </>}
-          </>) : <>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <h1>THERE ARE NO WORKOUTS FOR THIS EXERCISE</h1>
-            </div>
-          </>}
-        </>
-      ) : (
-        <div>No data loaded :(</div>)}
+          </>
+        ) : (
+          <div>No data loaded :(</div>)}
+      </span>
     </>
   );
 }
