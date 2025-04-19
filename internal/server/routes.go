@@ -131,15 +131,12 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 func CreateRoutes() http.Handler {
 	mux := http.NewServeMux()
 
-	fs := http.FileServer(http.Dir("public"))
-	mux.Handle("/public/", http.StripPrefix("/public/", fs))
-
-	mux.HandleFunc("/auth/google/callback", CheckSession(false, CallbackHandle))
-	mux.HandleFunc("/logout/google", LogoutHandle)
-	mux.HandleFunc("/auth/google", CheckSession(false, AuthHandle))
-	mux.HandleFunc("GET /app", CheckSession(true, appGet))
-	mux.HandleFunc("POST /app", CheckSession(true, appPost))
-	mux.HandleFunc("POST /workouts", CheckSession(true, workoutsPost))
+	mux.HandleFunc("/api/auth/google/callback", CheckSession(false, CallbackHandle))
+	mux.HandleFunc("/api/logout/google", LogoutHandle)
+	mux.HandleFunc("/api/auth/google", CheckSession(false, AuthHandle))
+	mux.HandleFunc("GET /api/app", CheckSession(true, appGet))
+	mux.HandleFunc("POST /api/app", CheckSession(true, appPost))
+	mux.HandleFunc("POST /api/workouts", CheckSession(true, workoutsPost))
 
 	return mux
 }
