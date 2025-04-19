@@ -15,5 +15,5 @@ func CreateAuth() {
 	store.Options.HttpOnly = true
 	store.Options.Secure = false
 	gothic.Store = store
-	goth.UseProviders(google.New(os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_SECRET"), os.Getenv("BACKEND_URL")+"/api/auth/google/callback"))
+	goth.UseProviders(google.New(os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_SECRET"), os.Getenv("BACKEND_URL")+"/auth/google/callback"))
 }
