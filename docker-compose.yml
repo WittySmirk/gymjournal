@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile
       target: prod
     restart: unless-stopped
+    image: wittysmirk/gymjournal-app:v1 
     ports:
       - 8080:8080
     env_file:
@@ -15,7 +16,9 @@ services:
       dockerfile: Dockerfile
       target: frontend
     restart: unless-stopped
+    image: wittysmirk/gymjournal-frontend:v1
     ports:
-      - 5173:5173
+      - 80:80
+      - 443:443
     depends_on:
       - app

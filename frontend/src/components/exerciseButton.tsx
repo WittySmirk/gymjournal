@@ -29,7 +29,7 @@ function ExerciseButton(
         reps: reps,
       };
 
-      await fetch("http://localhost:8080/app", {
+      await fetch(import.meta.env.VITE_BACKEND_URL + "/app", {
         method: "POST",
         body: JSON.stringify(d),
         credentials: "include"
@@ -51,7 +51,7 @@ function ExerciseButton(
       create: true,
       name: name,
     };
-    await fetch("http://localhost:8080/app", {
+    await fetch(import.meta.env.VITE_BACKEND_URL + "/app", {
       method: "POST",
       body: JSON.stringify(d),
       credentials: "include"
@@ -67,7 +67,7 @@ function ExerciseButton(
       delete: true,
       id: props.id
     };
-    await fetch("http://localhost:8080/app", {
+    await fetch(import.meta.env.VITE_BACKEND_URL + "/app", {
       method: "POST",
       body: JSON.stringify(d),
       credentials: "include"

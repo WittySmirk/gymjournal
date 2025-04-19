@@ -22,7 +22,7 @@ export type Data = {
 
 export async function fetchApi(setData: Dispatch<Data | undefined>) {
   // TODO: Figure out environment variables
-  const raw = await fetch("http://localhost:8080/app", {
+  const raw = await fetch(import.meta.env.VITE_BACKEND_URL + "/app", {
     credentials: "include",
   });
 
@@ -41,9 +41,9 @@ function AppLayout() {
         <h1>
           {data?.name.toUpperCase() + "'S GYM JOURNAL"}
         </h1>
-        <a href="http://localhost:8080/logout/google">EXIT</a>
+        <a href={import.meta.env.VITE_BACKEND_URL + "/logout/google"}>EXIT</a>
       </div>
-        <Outlet context={[data, setData]} />
+      <Outlet context={[data, setData]} />
       <div className={appLayoutStyles['footer']}>
         <Link to="/app">Tracker</Link>
         <Link to="/workouts">Workouts</Link>

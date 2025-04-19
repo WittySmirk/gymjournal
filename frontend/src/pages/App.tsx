@@ -24,7 +24,7 @@ function App() {
       name: name,
     };
 
-    await fetch("http://localhost:8080/app", {
+    await fetch(import.meta.env.VITE_BACKEND_URL + "/app", {
       method: "POST",
       body: JSON.stringify(d),
       credentials: "include"

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/go-playground/validator/v10"
@@ -50,7 +51,7 @@ func GetUserFromContext(r *http.Request) *User {
 func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		// TODO: Figure out environment variables for this
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173") // Replace "*" with specific origins if needed
+		w.Header().Set("Access-Control-Allow-Origin", os.Getenv("FRONTEND_URL")) // Replace "*" with specific origins if needed
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH")
 		w.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, X-CSRF-Token")
 		w.Header().Set("Access-Control-Allow-Credentials", "true")
@@ -64,7 +65,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 					return
 				}
 				fmt.Println("this is the redirect")
-				http.Redirect(w, r, "http://localhost:5173/", http.StatusSeeOther)
+				http.Redirect(w, r, os.Getenv("FRONTEND_URL"), http.StatusSeeOther)
 			}
 			fmt.Fprintln(w, err.Error())
 			return
@@ -123,7 +124,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 			h(w, r.WithContext(ctx))
 			return
 		}
-		http.Redirect(w, r, "http://localhost:5173/app", http.StatusSeeOther)
+		http.Redirect(w, r, os.Getenv("FRONTEND_URL")+"/app", http.StatusSeeOther)
 	}
 }
 
@@ -205,7 +206,7 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.SetCookie(w, cookie)
-	http.Redirect(w, r, "http://localhost:5173/app", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, os.Getenv("FRONTEND_URL")+"/app", http.StatusTemporaryRedirect)
 }
 
 func LogoutHandle(w http.ResponseWriter, r *http.Request) {
@@ -224,7 +225,7 @@ func LogoutHandle(w http.ResponseWriter, r *http.Request) {
 	})
 
 	gothic.Logout(w, r)
-	http.Redirect(w, r, "http://localhost:5173/", http.StatusTemporaryRedirect)
+	http.Redirect(w, r, os.Getenv("FRONTEND_URL"), http.StatusTemporaryRedirect)
 }
 
 func AuthHandle(w http.ResponseWriter, r *http.Request) {
@@ -232,7 +233,7 @@ func AuthHandle(w http.ResponseWriter, r *http.Request) {
 	q.Add("provider", "google")
 	r.URL.RawQuery = q.Encode()
 	if _, err := gothic.CompleteUserAuth(w, r); err == nil {
-		http.Redirect(w, r, "http://localhost:5173/app", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, os.Getenv("FRONTEND_URL")+"/app", http.StatusTemporaryRedirect)
 	} else {
 		gothic.BeginAuthHandler(w, r)
 	}

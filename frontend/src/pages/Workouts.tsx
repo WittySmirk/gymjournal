@@ -43,7 +43,7 @@ function Workouts() {
   const [data] = useData();
   const [workoutData, setWorkoutData] = useState<Workout[] | undefined>(undefined);
   const fetchWorkouts = async (id: string) => {
-    const raw = await fetch("http://localhost:8080/workouts", {
+    const raw = await fetch(import.meta.env.VITE_BACKEND_URL + "/workouts", {
       credentials: 'include',
       method: "POST",
       body: id,

@@ -28,4 +28,4 @@ FROM node:23-slim AS frontend
 RUN npm install -g serve
 COPY --from=frontend_builder /frontend/dist /app/dist
 EXPOSE 5173
-CMD ["serve", "-s", "/app/dist", "-l", "5173"]
+CMD ["serve", "-s", "/app/dist", "-l", "tcp://0.0.0.0:80"]
