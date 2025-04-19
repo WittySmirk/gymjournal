@@ -7,5 +7,5 @@ import (
 )
 
 func CreateAuth() {
-	goth.UseProviders(google.New(os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_SECRET"), "http://localhost:8080/auth/google/callback"))
+	goth.UseProviders(google.New(os.Getenv("GOOGLE_CLIENT_ID"), os.Getenv("GOOGLE_SECRET"), os.Getenv("BACKEND_URL")+"/api/auth/google/callback"))
 }
