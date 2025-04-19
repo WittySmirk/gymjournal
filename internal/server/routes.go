@@ -19,18 +19,7 @@ import (
 	"time"
 )
 
-/*
-func CorsMiddleWare(n http.HandlerFunc) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-
-		w.Header().Set("Access-Control-Allow-Origin", "*") // Replace "*" with specific origins if needed
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH")
-		w.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, X-CSRF-Token")
-		w.Header().Set("Access-Control-Allow-Credentials", "true") // Set to "true" if credentials are required
-n(w, r)
-	}
-}
-*/
+var isProduction = os.Getenv("ENV") == "production"
 
 func GetUserFromContext(r *http.Request) *User {
 	const userKey string = "user"
@@ -50,7 +39,6 @@ func GetUserFromContext(r *http.Request) *User {
 
 func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		// TODO: Figure out environment variables for this
 		w.Header().Set("Access-Control-Allow-Origin", os.Getenv("FRONTEND_URL")) // Replace "*" with specific origins if needed
 		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, PATCH")
 		w.Header().Set("Access-Control-Allow-Headers", "Accept, Authorization, Content-Type, X-CSRF-Token")
@@ -93,6 +81,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 					Path:     "/",
 					MaxAge:   -1,
 					HttpOnly: true,
+					Secure:   isProduction,
 				})
 				http.Redirect(w, r, "/", http.StatusSeeOther)
 			} else if mysession.ExpiresAt-time.Now().Unix() < (7 * 24 * 60 * 60) {
@@ -108,6 +97,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 					Path:     "/",
 					MaxAge:   15 * 24 * 60 * 60,
 					HttpOnly: true,
+					Secure:   isProduction,
 				})
 			}
 
@@ -199,7 +189,7 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		MaxAge:   15 * 24 * 60 * 60,
 		HttpOnly: true,
-		Secure:   false, // Change to true in production
+		Secure:   isProduction,
 	}
 
 	http.SetCookie(w, cookie)
@@ -218,7 +208,7 @@ func LogoutHandle(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		MaxAge:   -1,
 		HttpOnly: true,
-		Secure:   false, // Change in prod
+		Secure:   isProduction,
 	})
 
 	gothic.Logout(w, r)
