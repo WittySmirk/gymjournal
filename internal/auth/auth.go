@@ -13,6 +13,8 @@ var isProduction = os.Getenv("ENV") == "production"
 
 func CreateAuth() {
 	store := sessions.NewCookieStore(sessionSecret)
+	store.Options.Path = "/"
+	store.Options.MaxAge = 86400 * 30
 	store.Options.HttpOnly = true
 	store.Options.Secure = isProduction
 	gothic.Store = store

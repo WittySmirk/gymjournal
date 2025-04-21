@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -135,6 +136,10 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	q.Add("provider", "google")
 	r.URL.RawQuery = q.Encode()
+
+	session, _ := gothic.Store.Get(r, "gothic-session")
+	log.Printf("%s", session.Values)
+
 	tuser, gerr := gothic.CompleteUserAuth(w, r)
 	if gerr != nil {
 		fmt.Fprintln(w, gerr)
