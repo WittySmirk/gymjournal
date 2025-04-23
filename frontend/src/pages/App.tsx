@@ -36,10 +36,10 @@ function App() {
   }
 
   useEffect(() => {
-    if (data != undefined && data!.nameNotValid) {
-      setNameNotValid(true);
+    if (data != undefined) {
+      setNameNotValid(data!.nameNotValid)
     }
-  }, []);
+  }, [data]);
 
   return (
     <>
@@ -58,15 +58,16 @@ function App() {
                   <p className={modalStyles['error']}>{wrongName == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
                 </Modal>
               </>
-            ) : (<></>)}
-            <>
-              <div className={appStyles['grid']}>
-                {data.exercises.map((e, k) => {
-                  return <ExerciseButton key={k} create={false} name={e.name} id={e.id} />
-                })}
-                <ExerciseButton create={true} fetchApi={fetchApi} setData={setData} />
-              </div >
-            </>
+            ) :
+              <>
+                <div className={appStyles['grid']}>
+                  {data.exercises.map((e, k) => {
+                    return <ExerciseButton key={k} create={false} name={e.name} id={e.id} />
+                  })}
+                  <ExerciseButton create={true} fetchApi={fetchApi} setData={setData} />
+                </div >
+              </>
+            }
           </>
         ) : (
           <div>No data loaded :(</div>

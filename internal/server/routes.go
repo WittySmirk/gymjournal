@@ -273,6 +273,7 @@ func appGet(w http.ResponseWriter, r *http.Request) {
 	if !name.Valid {
 		data := Data{
 			NameNotValid: true,
+			Exercises:    []Exercise{},
 		}
 
 		jsonbytes, jerr := json.Marshal(data)
@@ -331,7 +332,7 @@ func appPost(w http.ResponseWriter, r *http.Request) {
 		if verr != nil {
 			http.Error(w, "name not accepted", http.StatusNotAcceptable)
 		}
-		_, derr := db.Exec("UPDATE user SET name = ? WHERE user_id = ?", body.Name, myuser.Id)
+		_, derr := db.Exec("UPDATE user SET name = ? WHERE id = ?", body.Name, myuser.Id)
 		if derr != nil {
 			fmt.Fprintln(w, derr.Error())
 			return
