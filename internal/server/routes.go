@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
+	//	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -82,6 +82,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 					Path:     "/",
 					MaxAge:   -1,
 					HttpOnly: true,
+					SameSite: http.SameSiteLaxMode,
 					Secure:   isProduction,
 				})
 				http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -98,6 +99,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 					Path:     "/",
 					MaxAge:   15 * 24 * 60 * 60,
 					HttpOnly: true,
+					SameSite: http.SameSiteLaxMode,
 					Secure:   isProduction,
 				})
 			}
@@ -122,7 +124,7 @@ func CheckSession(shouldexist bool, h http.HandlerFunc) http.HandlerFunc {
 func CreateRoutes() http.Handler {
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/api/auth/google/callback", CheckSession(false, CallbackHandle))
+	mux.HandleFunc("/api/auth/google/callback", CallbackHandle)
 	mux.HandleFunc("/api/logout/google", LogoutHandle)
 	mux.HandleFunc("/api/auth/google", CheckSession(false, AuthHandle))
 	mux.HandleFunc("GET /api/app", CheckSession(true, appGet))
@@ -136,9 +138,6 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 	q := r.URL.Query()
 	q.Add("provider", "google")
 	r.URL.RawQuery = q.Encode()
-
-	session, _ := gothic.Store.Get(r, "gothic-session")
-	log.Printf("%s", session.Values)
 
 	tuser, gerr := gothic.CompleteUserAuth(w, r)
 	if gerr != nil {
@@ -178,10 +177,10 @@ func CallbackHandle(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create session
-	fmt.Println(myuser.Id)
+	//fmt.Println(myuser.Id)
 	sessionId := uuid.New()
 	expiresAt := time.Now().Unix() + (15 * 24 * 60 * 60) // Make session expire in 15 days
-	fmt.Println(expiresAt)
+	//	fmt.Println(expiresAt)
 	_, serr := db.Exec("INSERT INTO session (id, user_id, expires_at) VALUES (?, ?, ?)", sessionId, myuser.Id, expiresAt)
 	if serr != nil {
 		fmt.Fprintln(w, serr)
@@ -213,6 +212,7 @@ func LogoutHandle(w http.ResponseWriter, r *http.Request) {
 		Path:     "/",
 		MaxAge:   -1,
 		HttpOnly: true,
+		SameSite: http.SameSiteLaxMode,
 		Secure:   isProduction,
 	})
 
