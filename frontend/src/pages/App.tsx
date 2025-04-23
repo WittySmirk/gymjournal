@@ -50,10 +50,10 @@ function App() {
               <>
                 <Modal formAction={nameAction} >
                   <h1>CREATE USER NAME</h1>
-                  <label className={modalStyles['item']} htmlFor="name">PLEASE ENETER YOUR NAME</label>
-                  <input className={modalStyles['item']} type="text" id="name" name="name" required />
+                  <label className={modalStyles['item-label']} htmlFor="name">PLEASE ENTER YOUR NAME</label>
+                  <input className={modalStyles['item-input']} type="text" id="name" name="name" required />
                   <div className={modalStyles['item']}>
-                    <input type="submit" value="SUBMIT" />
+                    <input className={modalStyles['item-button']} type="submit" value="SUBMIT" />
                   </div>
                   <p className={modalStyles['error']}>{wrongName == "string" ? "MAKE SURE NAME IS VALID TEXT" : ""}</p>
                 </Modal>

@@ -5,11 +5,7 @@ function Modal(props: { children: ReactNode, formAction: (formData: any) => void
     props.formAction(formData);
   }
   return (
-    <div className={modalStyles['modal']} onClick={() => {
-      if (props.open) {
-        props.open(false)
-      }
-    }}>
+    <div className={modalStyles['modal']}>
       {/* @ts-ignore */}
       <form className={modalStyles['form']} action={modalAction}>
         {props.children}
