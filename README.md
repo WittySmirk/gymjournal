@@ -1,6 +1,7 @@
 # Gym Journal
 
 This is gym journal. An open source tracking web application inspired by Stupid Simple Macro Tracker
+<a href="d1wcklwkt2q0o7.cloudfront.net">Link</a>
 
 ### Goals
 * Provide a simple user interface to see trends in training data
